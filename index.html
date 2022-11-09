@@ -11,8 +11,17 @@
 </head>
 
 <body>
-    <h1>Tic Tac Toe</h1>
-    <div class="container"></div>
+    <div class="wrapper">
+        <h1>Tic Tac Toe</h1>
+        <div class="content">
+            <div class="left">
+                <div class="container"></div>
+                <div class="winner"></div>
+                <div class="new-round"></div>
+            </div>
+            <div class="right"></div>
+        </div>
+    </div>
     <script>
         let container = document.querySelector(".container");
         for (let i = 0; i < 9; i++) {
@@ -28,8 +37,6 @@
         }
         squares.forEach(square => square.addEventListener("click", go));
     </script>
-    <div class="winner"></div>
-    <div class="new-round"></div>
 </body>
 
 </html>

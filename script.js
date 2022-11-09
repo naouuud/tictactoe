@@ -67,3 +67,19 @@ let currentPlayer = 0;
 let players = [];
 addPlayer("X");
 addPlayer("O");
+
+// function createDOMElement(type, _class) {
+//     return { type, _class };
+// }
+
+// function appendDOMElement(n, childObj, parentObj) {
+//     const parent = document.createElement(parentObj.type);
+//     parent.classList.add(parentObj._class);
+//     for (let i = 0; i < n; i++) {
+//         const child = document.createElement(childObj.type);
+//         child.classList.add(childObj._class);
+//         child.setAttribute("index", i);
+//         parent.appendChild(child);
+//     }
+//     return parent;
+// }
