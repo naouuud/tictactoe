@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +9,32 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
+
 <body>
-    
+    <h1>Tic Tac Toe</h1>
+    <div class="container"></div>
+    <script>
+        let container = document.querySelector(".container");
+        for (let i = 0; i < 9; i++) {
+            const square = document.createElement("div");
+            square.classList.add("square");
+            square.setAttribute("index", i);
+            square.setAttribute("status", "available");
+            container.appendChild(square);
+        }
+        const squares = document.querySelectorAll(".square");
+        squares.forEach(square => square.addEventListener("click", () => fillSquare(square)));
+        function fillSquare(square) {
+            if (square.attributes.status.value === "taken") return;
+            if (currentPlayer === 0) square.textContent = "X";
+            else square.textContent = "O";
+            square.attributes.status.value = "taken";
+            const index = square.attributes.index.value;
+            game.play(index);
+        }
+    </script>
+    <div class="winner"></div>
+    <div class="new-round"></div>
 </body>
+
 </html>
