@@ -23,15 +23,10 @@
             container.appendChild(square);
         }
         const squares = document.querySelectorAll(".square");
-        squares.forEach(square => square.addEventListener("click", () => fillSquare(square)));
-        function fillSquare(square) {
-            if (square.attributes.status.value === "taken") return;
-            if (currentPlayer === 0) square.textContent = "X";
-            else square.textContent = "O";
-            square.attributes.status.value = "taken";
-            const index = square.attributes.index.value;
-            game.play(index);
+        function go(event) {
+            game.play(event.target)
         }
+        squares.forEach(square => square.addEventListener("click", go));
     </script>
     <div class="winner"></div>
     <div class="new-round"></div>
