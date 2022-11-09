@@ -1,26 +1,32 @@
 const game = (function () {
-    const board = [];
-    const _augmentScore = player => player.score += 1;
-    const _run = () => {
-        for (let i = 0; i < 9; i++) {
-            if (board[i] === board[i + 1] && board[i] === board[i + 2]) return board[i];
-        }
+    const board = ["adg", "ae", "afh", "bd", "begh", "bf", "cdh", "ce", "cfg"];
+    const _run = (player) => {
+        let sorted = player.squares.split('').sort().join('');
+        return /a{3}|b{3}|c{3}|d{3}|e{3}|f{3}|g{3}|h{3}/.test(sorted);
+    }
+    const newRound = () => {
+        players.forEach(player => player.squares = "");
     }
     const reset = () => {
-        for (let i = 0; i < 9; i++) board[i] = {};
+        players = [];
     }
-    const fill = i => {
-        if (!board[i].name) board[i] = player;
-        _run();
-        if (_run()) _augmentScore(_run());
+    const play = (player, square) => {
+        players[player].squares += board[square];
+        if (_run(players[player])) declareWinner(players[player]);
     }
-    return { fill, reset };
+    const declareWinner = (player) => {
+        console.log(`${player.name} is the winner!`)
+        player.score += 1;
+        newRound();
+    }
+    return { play };
 })();
 
 function addPlayer(name) {
-    const newPlayer = {name, score: 0};
+    const newPlayer = { name, squares: "", score: 0 };
     players.push(newPlayer);
 }
 
 const players = [];
-game.reset();
+addPlayer("jenny");
+addPlayer("timmy");
