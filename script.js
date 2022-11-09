@@ -46,14 +46,11 @@ const game = (function () {
         else if (squaresTaken === 9) _endRound();
         _togglePlayer();
     }
-    const _fillSquare = (square) => {
+    const play = (square) => {
         if (square.attributes.status.value === "taken") return;
         if (currentPlayer === 0) square.textContent = "X";
         else square.textContent = "O";
         square.attributes.status.value = "taken";
-    }
-    function play(square) {
-        _fillSquare(square);
         const index = square.attributes.index.value;
         _run(index);
     }
