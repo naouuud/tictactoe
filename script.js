@@ -21,12 +21,9 @@ const game = (function () {
         squares.forEach(square => square.addEventListener("click", go));
         _resetBoard();
     }
-    const _declareWinner = (player) => {
-        winner.textContent = `${player.name} wins!`
-        player.score += 1;
-    }
     const _endRound = (player) => {
-        if (player) _declareWinner(player);
+        if (player === "draw") winner.textContent = "Draw";
+        else if (player) winner.textContent = `${player.name} wins!`
         squaresTaken = 0;
         squares.forEach(square => square.removeEventListener("click", go));
         const newRound = document.querySelector(".new-round");
@@ -43,7 +40,7 @@ const game = (function () {
         players[currentPlayer].squares += board[square];
         squaresTaken++;
         if (_checkWinner(players[currentPlayer])) _endRound(players[currentPlayer]);
-        else if (squaresTaken === 9) _endRound();
+        else if (squaresTaken === 9) _endRound("draw");
         _togglePlayer();
     }
     const play = (square) => {
@@ -54,12 +51,11 @@ const game = (function () {
         const index = square.attributes.index.value;
         _run(index);
     }
-    const reset = () => players = [];
-    return { play, reset };
+    return { play };
 })();
 
 function addPlayer(name) {
-    const newPlayer = { name, squares: "", score: 0 };
+    const newPlayer = { name, squares: ""};
     players.push(newPlayer);
 }
 
@@ -67,19 +63,3 @@ let currentPlayer = 0;
 let players = [];
 addPlayer("X");
 addPlayer("O");
-
-// function createDOMElement(type, _class) {
-//     return { type, _class };
-// }
-
-// function appendDOMElement(n, childObj, parentObj) {
-//     const parent = document.createElement(parentObj.type);
-//     parent.classList.add(parentObj._class);
-//     for (let i = 0; i < n; i++) {
-//         const child = document.createElement(childObj.type);
-//         child.classList.add(childObj._class);
-//         child.setAttribute("index", i);
-//         parent.appendChild(child);
-//     }
-//     return parent;
-// }
