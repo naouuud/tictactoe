@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Nunito+Sans&display=swap');
 
+:root {
+    --container-width: 30vw;
+}
+
 body {
     display: grid;
     justify-content: center;
@@ -14,19 +18,18 @@ body {
     min-width: 65vw;
     background-color: white;
     border-radius: 35px;
+    border: 2px dashed black;
+    border-top: 6px dashed black;
+    box-sizing: border-box;
     display: grid;
     grid-template-rows: auto auto;
-}
-
-:root {
-    --container-width: 30vw;
 }
 
 h1 {
     text-align: center;
     font-family: "Anton", sans-serif;
     font-size: calc(2.5vw + 24px);
-    margin-bottom: 0;
+    margin: 8px auto;
 }
 
 .content {
@@ -35,7 +38,7 @@ h1 {
     grid-template-columns: auto auto;
     justify-content: left;
     align-content: center;
-    padding: 30px calc(var(--container-width) * .2) 45px calc(var(--container-width) * .2);
+    padding: 30px calc(var(--container-width) * .2) 40px calc(var(--container-width) * .2);
 }
 
 .left {
@@ -98,6 +101,7 @@ h1 {
     font-size: calc(2vw + 12px);
 }
 
-.mode button {
-    display: inline;
+.mode button.green {
+    background-color: lawngreen;
+    color: black;
 }

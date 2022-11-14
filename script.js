@@ -1,10 +1,12 @@
 const game = (function () {
-    let squaresTaken = 0;
     let board = ["adg", "ae", "afh", "bd", "begh", "bf", "cdh", "ce", "cfg"];
     const winner = document.querySelector(".winner");
     const _togglePlayer = () => {
         if (currentPlayer === 0) currentPlayer = 1;
         else currentPlayer = 0;
+        if (currentPlayer === 1 && players[1].name === "Computer") {
+            setTimeout(aiPlay, 500);
+        }
     }
     const _resetBoard = () => {
         squares.forEach(square => {
@@ -39,8 +41,14 @@ const game = (function () {
     const _run = (square) => {
         players[currentPlayer].squares += board[square];
         squaresTaken++;
-        if (_checkWinner(players[currentPlayer])) _endRound(players[currentPlayer]);
-        else if (squaresTaken === 9) _endRound("draw");
+        if (_checkWinner(players[currentPlayer])) {
+            _endRound(players[currentPlayer]);
+            return
+        }
+        else if (squaresTaken === 9) {
+            _endRound("draw");
+            return;
+        }
         _togglePlayer();
     }
     const play = (square) => {
@@ -51,14 +59,27 @@ const game = (function () {
         const index = square.attributes.index.value;
         _run(index);
     }
-    return { play };
+    const aiPlay = () => {
+        let k = Math.floor(Math.random() * 9);
+        let square = document.querySelector(`[index="${k}"]`);
+        if (square.attributes.status.value === "taken") {
+            aiPlay();
+            return
+        }
+        square.textContent = "O";
+        square.attributes.status.value = "taken";
+        const index = square.attributes.index.value;
+        _run(index);
+    }
+    return { play, _newRound };
 })();
 
 function addPlayer(name) {
-    const newPlayer = { name, squares: ""};
+    const newPlayer = { name, squares: "" };
     players.push(newPlayer);
 }
 
+let squaresTaken = 0;
 let currentPlayer = 0;
 let players = [];
 addPlayer("X");

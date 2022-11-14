@@ -20,8 +20,8 @@
             <div class="right">
                 <div class="right-top">
                     <div class="mode">
-                        <div>Mode</div>
-                        <div><button>Hooman</button> <button>AI</button></div>
+                        <div class>Mode</div>
+                        <div><button class="human green">Hooman</button> <button class="ai">AI</button></div>
                     </div>
                 </div>
                 <div class="right-bottom">
@@ -45,6 +45,29 @@
             game.play(event.target)
         }
         squares.forEach(square => square.addEventListener("click", go));
+        function switchMode(event) {
+            if (event.target.classList.value === "human") {
+                ai.classList.remove("green");
+                hooman.classList.add("green");
+                game._newRound();
+                squaresTaken = 0;
+                players = [];
+                addPlayer("X");
+                addPlayer("O");
+            } else if (event.target.classList.value === "ai") {
+                ai.classList.add("green");
+                hooman.classList.remove("green");
+                game._newRound();
+                squaresTaken = 0;
+                players = [];
+                addPlayer("Human")
+                addPlayer("Computer")
+            }
+        }
+        let hooman = document.querySelector(".human");
+        hooman.addEventListener("click", switchMode);
+        let ai = document.querySelector(".ai");
+        ai.addEventListener("click", switchMode);
     </script>
 </body>
 
